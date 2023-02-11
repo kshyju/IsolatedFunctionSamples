@@ -1,7 +1,11 @@
+using IsolatedFunctionSamples.Converters;
 using Microsoft.Extensions.Hosting;
 
 var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults()
+    .ConfigureFunctionsWorkerDefaults(workerOptions =>
+    {
+        workerOptions.InputConverters.Register<CustomerConverter>();
+    })
     .Build();
 
-host.Run();
+await host.RunAsync();
